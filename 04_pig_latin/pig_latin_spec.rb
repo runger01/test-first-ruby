@@ -68,5 +68,9 @@ describe "#translate" do
   # Test-driving bonus:
   # * write a test asserting that capitalized words are still capitalized (but with a different initial capital letter, of course)
   # * retain the punctuation from the original phrase
+  it "Capitalized words stay capitalized" do
+      s = translate("Music is math")
+      s.should == "Usicmay isay athmay"
+  end
 
 end

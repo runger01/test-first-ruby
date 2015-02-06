@@ -1,17 +1,30 @@
-VOWELS = ["a", "e", "i", "o", "u"]
+def is_vowel?(char)
+    vowels = ["a", "e", "i", "o", "u"]
+    vowels.include?(char)
+end
 
 # count consonants up till the first vowel find the index of the first vowel
 def count_leading_consonants(word)
     characters = word.split("")
     count = 0
-    characters.each do |char|
-        if VOWELS.include?(char)
+    while count <= characters.length
+        if !is_vowel?(characters[count-1]) && characters[count] == "q" && characters[count+1] == "u"
+            count += 2
+        elsif is_vowel?(characters[count])
             return count
-        else
+        else 
             count += 1
         end
     end
     return count
+    # old attempt at the loop, couldn't find a way to count "ua" as a consonant
+    #characters.each do |char|
+    #    if is_vowel?(char)
+    #        return count
+    #    else
+    #        count += 1
+    #    end
+    #end
 end
 
 def pop_leading_consonants(word, length)
@@ -30,3 +43,5 @@ def translate(words)
     end
     words.join(" ")
 end
+
+puts translate("Music is math")
