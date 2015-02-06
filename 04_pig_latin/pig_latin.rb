@@ -3,16 +3,15 @@ def is_vowel?(char)
     vowels.include?(char)
 end
 
-# count consonants up till the first vowel find the index of the first vowel
 def count_leading_consonants(word)
     characters = word.split("")
     count = 0
     while count <= characters.length
-        if !is_vowel?(characters[count-1]) && characters[count] == "q" && characters[count+1] == "u"
+        if not is_vowel?(characters[count-1]) and characters[count] == "q" and characters[count+1] == "u"
             count += 2
         elsif is_vowel?(characters[count])
             return count
-        else 
+        else
             count += 1
         end
     end
@@ -34,14 +33,22 @@ def pop_leading_consonants(word, length)
     popped_consonants
 end
 
+def starts_with_capital?(word)
+    word[0] == word[0].upcase
+end
+
 def translate(words)
+    first_character_is_uppercase = starts_with_capital?(words)
     words = words.split(" ")
     words.map! do |word|
         length = count_leading_consonants(word)
         popped_consonants = pop_leading_consonants(word, length)
         word = word + popped_consonants + "ay"
     end
-    words.join(" ")
-end
 
-puts translate("Music is math")
+    if first_character_is_uppercase
+        return words.join(" ").capitalize
+    else
+        return words.join(" ")
+    end
+end
