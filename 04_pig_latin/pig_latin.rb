@@ -1,31 +1,32 @@
 VOWELS = ["a", "e", "i", "o", "u"]
 
-def index_of_first_vowel word
-	word.map do |char|
-		if VOWELS.include?(char)
-			index = word.index(char)
-		end
-	end
-	index
+# count consonants up till the first vowel find the index of the first vowel
+def count_leading_consonants(word)
+    characters = word.split("")
+    count = 0
+    characters.each do |char|
+        if VOWELS.include?(char)
+            return count
+        else
+            count += 1
+        end
+    end
+    return count
 end
 
-def pop_consonants word
+def pop_leading_consonants(word, length)
+    position_of_last_consonant = length - 1
+    popped_consonants = word[0..position_of_last_consonant]
+    word[0..position_of_last_consonant] = ""
+    popped_consonants
 end
 
-def pop_first_char word
-	popped_char = word[0]
-	word[0] = ""
-	popped_char
+def translate(words)
+    words = words.split(" ")
+    words.map! do |word|
+        length = count_leading_consonants(word)
+        popped_consonants = pop_leading_consonants(word, length)
+        word = word + popped_consonants + "ay"
+    end
+    words.join(" ")
 end
-
-def translate word
-	# if word starts with a vowel
-	if VOWELS.include?(word[0])
-		word = word + "ay"
-	# word starts with a consonant
-	else
-		consonant = pop_first_char(word)
-		word = word + consonant + "ay"
-	end
-end
-
